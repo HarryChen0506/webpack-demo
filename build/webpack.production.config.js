@@ -17,7 +17,10 @@ module.exports = {
     entry: path.join(__dirname,'../app/main.js'),
     output: {
         path: config.build.assetsRoot,
-        filename: assetsPath('bundle-[hash].js')   //utils.assetsPath('js/[name].[chunkhash].js')
+        publicPath: process.env.NODE_ENV === 'production'
+                    ? config.build.assetsPublicPath
+                    : config.dev.assetsPublicPath,        
+        filename: assetsPath('bundle-[hash].js'),   //utils.assetsPath('js/[name].[chunkhash].js')
     },
     devtool: 'eval-source-map',
     module: {
@@ -28,18 +31,29 @@ module.exports = {
                 exclude: /node_modules/
             },{
                 test: /\.css$/,
-                use: [
-                    {
-                        loader: "style-loader"
-                    },{
+                // use: [
+                //     {
+                //         loader: "style-loader"
+                //     },{
+                //         loader: 'css-loader',
+                //         options: {
+                //             modules: false
+                //         }
+                //     },{
+                //         loader: 'postcss-loader'
+                //     }
+                // ]
+                use: ExtractTextPlugin.extract({
+                    use:[{
                         loader: 'css-loader',
                         options: {
-                            modules: false
-                        }
+                            modules: false,
+                        }                            
                     },{
                         loader: 'postcss-loader'
-                    }
-                ]
+                    }],
+                    fallback: 'style-loader',
+                })
             },{
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
@@ -61,6 +75,8 @@ module.exports = {
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin(),
-        new ExtractTextPlugin("style.css")        
+        new ExtractTextPlugin({
+            filename: assetsPath('css/[name].[contenthash].css')
+        }),    
     ]
 }

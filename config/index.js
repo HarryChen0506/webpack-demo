@@ -5,11 +5,13 @@ var path = require('path');
 
 module.exports = {
     dev: {
-        assetsRoot: path.resolve(__dirname, '../dist'),
-        assetsSubDirectory: 'static'
+        assetsRoot: path.resolve(__dirname, '../dist/'),
+        assetsSubDirectory: 'static',
+        assetsPublicPath: '/',
     },
     build: {
-        assetsRoot: path.resolve(__dirname, '../dist'),
-        assetsSubDirectory: 'static'
+        assetsRoot: path.resolve(__dirname, '../dist/'),
+        assetsSubDirectory: 'static',
+        assetsPublicPath: '/',
     }
 }
