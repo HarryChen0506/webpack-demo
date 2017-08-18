@@ -1,21 +1,25 @@
+const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+const config = require('../config');
+
+function assetsPath(_path) {
+  var assetsSubDirectory = process.env.NODE_ENV === 'production'
+    ? config.build.assetsSubDirectory
+    : config.dev.assetsSubDirectory
+  return path.posix.join(assetsSubDirectory, _path)
+}
+
 module.exports = {
-    entry: __dirname+'/app/main.js',
+    entry: path.join(__dirname,'../app/main.js'),
     output: {
-        path: __dirname + '/dist/',
-        filename: 'bundle-[hash].js'
+        path: config.build.assetsRoot,
+        filename: assetsPath('bundle-[hash].js')   //utils.assetsPath('js/[name].[chunkhash].js')
     },
     devtool: 'eval-source-map',
-    devServer: {
-        contentBase: __dirname + '/public/',
-        historyApiFallback: true,
-        inline: true,
-        port: '8091'
-    },
     module: {
         rules: [
             {
@@ -41,16 +45,15 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(['dist'],{
-            root: __dirname,
+            root: path.join(__dirname,"../"),
             verbose: true,
             dry: false
         }),
         new HtmlWebpackPlugin({
-            template: __dirname + "/index.html"  //new 一个这个插件的实例，并传入相关的参数
+            template: path.join(__dirname ,"../index.html")  //new 一个这个插件的实例，并传入相关的参数
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin(),
-        new ExtractTextPlugin("style.css")
-        
+        new ExtractTextPlugin("style.css")        
     ]
 }
