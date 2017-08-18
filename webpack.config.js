@@ -1,6 +1,15 @@
+const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const config = require('./config');
+function assetsPath(_path) {
+  var assetsSubDirectory = process.env.NODE_ENV === 'production'
+    ? config.build.assetsSubDirectory
+    : config.dev.assetsSubDirectory
+  return path.posix.join(assetsSubDirectory, _path)
+}
 
 module.exports = {
     entry: __dirname+'/app/main.js',
@@ -29,12 +38,20 @@ module.exports = {
                     },{
                         loader: 'css-loader',
                         options: {
-                            modules: true
+                            // modules: true,  // true css模块化 命名空间
+                            modules: false    // false 按原来的样式
                         }
                     },{
                         loader: 'postcss-loader'
                     }
                 ]
+            },{
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000,
+                    name: assetsPath('img/[name].[hash:7].[ext]')
+                }
             }
         ]
     },

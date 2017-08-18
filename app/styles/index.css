@@ -25,3 +25,7 @@ div {
     display: flex;
     transform: translateX(90px);
 }
+.img {
+  background: url('../images/1.jpg') no-repeat;
+  background-size: cover;
+}

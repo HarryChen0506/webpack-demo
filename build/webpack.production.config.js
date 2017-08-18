@@ -34,12 +34,19 @@ module.exports = {
                     },{
                         loader: 'css-loader',
                         options: {
-                            modules: true
+                            modules: false
                         }
                     },{
                         loader: 'postcss-loader'
                     }
                 ]
+            },{
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000,
+                    name: assetsPath('img/[name].[hash:7].[ext]')
+                }
             }
         ]
     },
