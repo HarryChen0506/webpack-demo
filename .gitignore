@@ -59,6 +59,5 @@ typings/
 
 #production directory  生产代码
 dist/
-build/
 
 
