@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack",
     "server": "webpack-dev-server --open",
-    "build": " set NODE_ENV=production &&  webpack --config ./webpack.production.config.js --progress",
-    "build_new": "node ./build/build.js"
+    "build": "node ./build/build.js"
   },
   "keywords": [
     "webpack"

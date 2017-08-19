@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+#production directory  生产代码
+dist/
+build/
+
+
