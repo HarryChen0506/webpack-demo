@@ -8,7 +8,7 @@ module.exports = {
         assetsRoot: path.resolve(__dirname, '../public/'),
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
-        port: '8090',
+        port: '8091',
         autoOpenBrowser: true
     },
     build: {
